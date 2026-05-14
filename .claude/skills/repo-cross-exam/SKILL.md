@@ -66,6 +66,10 @@ When Agent is available, split into:
   wrong answer to flag).
 - Include at least one change-impact scenario per service.
 - Answers should be crisp — under 150 words each.
+- **All diagrams must be Mermaid.** No ASCII art, no ANSI box-drawing. Use
+  Mermaid `sequenceDiagram` blocks in `control-flow-traps.md` to set up the
+  scenario, and `flowchart` blocks in `change-scenarios.md` to show blast
+  radius of the proposed change.
 
 ## Guardrails
 
@@ -74,3 +78,5 @@ When Agent is available, split into:
 - Do not generate questions that the parent pack does not have the evidence to
   answer.
 - Do not write a question without writing the model answer alongside it.
+- Do not use ASCII art or text-based pseudo diagrams. Every diagram is a
+  fenced ```mermaid``` block.

@@ -187,10 +187,44 @@ hire:
 ## Writing Rules
 
 - Markdown headings and short paragraphs. Tables for inventories.
-- Mermaid diagrams for topology and request flow.
+- **All diagrams must be Mermaid.** No ASCII art, ANSI box-drawing, or
+  pseudo-graphical text. If a topology, sequence, state, ER, or flow needs a
+  picture, use a fenced ```mermaid``` block. This applies to every file in the
+  pack, not just `03-architecture.md`.
+- Use the right Mermaid diagram type for the job:
+  - `flowchart LR` / `flowchart TD` — service topology, request flow, component map
+  - `sequenceDiagram` — request lifecycle, control flow, multi-service handshakes
+  - `erDiagram` — data model and entity relationships
+  - `stateDiagram-v2` — entity lifecycle, job state machines
+  - `classDiagram` — module/class structure when relevant
+  - `gantt` — 30/60/90 ramp plan timeline
+  - `journey` — new-hire user journey through the codebase
+- Every numbered file should include at least one Mermaid diagram where a
+  picture clarifies the prose. Specifically:
+  - `03-architecture.md` — at least one `flowchart` of the service topology
+    AND one `sequenceDiagram` of the main request flow
+  - `05-data-and-storage.md` — at least one `erDiagram` of the core entities
+  - `06-apis-and-integrations.md` — `sequenceDiagram` for any non-trivial flow
+    (auth, payment, webhook)
+  - `07-build-test-deploy.md` — `flowchart` of the CI/CD pipeline from commit
+    to production
+  - `09-observability-and-debugging.md` — `flowchart` of the logs/metrics/traces
+    pipeline
+  - `12-ramp-plan.md` — `gantt` chart of the 30/60/90 plan
 - Code fences for every shell command — copy-paste must work.
 - Always include file paths with line numbers when describing behavior.
 - Tone: direct, technical, day-one-friendly. No marketing voice.
+
+## Mermaid Quality Bar
+
+- Keep node labels short — 1–4 words. Long labels break rendering.
+- Use subgraphs to group services by deployment unit or domain boundary.
+- Label edges with the verb that describes the call (`POST /jobs`, `publishes`,
+  `reads`, etc.) — never leave an edge unlabeled in a sequence diagram.
+- Render the diagram mentally before writing it: if it would have more than ~15
+  nodes, split it into two diagrams.
+- Use `note over` / `note right of` in sequence diagrams to call out invariants,
+  retries, or idempotency keys.
 
 ## Failure Modes To Avoid
 
@@ -198,6 +232,8 @@ hire:
 - Do not fabricate endpoints, jobs, or services. Only describe what you saw.
 - Do not paste large chunks of source code verbatim — link to the file path
   with line numbers instead.
+- Do not use ASCII art, ANSI box-drawing characters, or text-based pseudo
+  diagrams. Every diagram must be a fenced ```mermaid``` block.
 - Do not skip the ramp plan. A pack without a ramp plan is not an onboarding pack.
 - Do not skip the gotchas file. Tribal knowledge is the highest-value section.
 - Do not assume a stack — read the manifests before claiming a framework.

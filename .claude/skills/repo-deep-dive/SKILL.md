@@ -78,7 +78,17 @@ When Agent is available, split into:
 ## Quality Bar
 
 - Cite file paths with line ranges everywhere a claim is made.
-- Show one Mermaid sequence diagram for the main flow.
+- **All diagrams must be Mermaid.** No ASCII art, no ANSI box-drawing. Use a
+  fenced ```mermaid``` block for every visual.
+- Required diagrams in this archetype:
+  - `02-architecture.md` — at least one `flowchart` of internal components and
+    external dependencies
+  - `03-control-flow.md` — at least one `sequenceDiagram` of the happy-path
+    request (with `note over` blocks for invariants and retries)
+  - `04-data-model.md` — at least one `erDiagram` of the entities, plus a
+    `stateDiagram-v2` if the core entity has a non-trivial lifecycle
+  - `05-failure-modes.md` — a `flowchart` showing failure detection and recovery
+    paths, or a `stateDiagram-v2` of degraded states
 - "Common tasks" must be concrete enough that a new hire could attempt one same-day.
 - Be honest about messy areas. Mark them with `> ⚠ messy:` rather than glossing over.
 
@@ -87,3 +97,5 @@ When Agent is available, split into:
 - Do not duplicate the parent onboarding pack — link to it.
 - Do not invent contracts. Quote the code.
 - Do not skip failure modes — they are the highest-value section after control flow.
+- Do not use ASCII art or text-based pseudo diagrams. Every diagram is a
+  fenced ```mermaid``` block.
